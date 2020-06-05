@@ -1,0 +1,40 @@
+-> Jenkins workspace:
+
+[root@jenkins Ansible]# pwd
+/var/lib/jenkins/workspace/Ansible
+
+
+No need to specify vault  password every time:
+
+# openssl rand -base64 2048 > vault.pass
+# ansible-vault create pass.yml --vault-password-file vault.pass
+
+# pwd
+/var/lib/jenkins/workspace/Ansible
+# ls -lrt
+total 12
+-rw-r--r--. 1 root root  541 Jun  5 10:56 create_bucket.yaml
+-rw-r--r--. 1 root root 2775 Jun  5 11:06 vault.pass
+-rw-------. 1 root root  355 Jun  5 11:10 pass.yml
+
+Update pass.yml with aws user keys ,so that we can access the aws environment
+
+#ansible-vault edit pass.yml --vault-password-file vault.pass
+ec2_access_key: A*********************8
+ec2_secret_key: ***********************
+
+
+pip3 install awscli
+
+aws configure
+cat .aws/credentials
+AccessKeyId: AKIALNZTQW6H3EFBRLHQ
+SecretAccessKey: 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
+
+
+
+#aws s3 ls
+
+
+
+
